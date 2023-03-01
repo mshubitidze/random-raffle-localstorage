@@ -17,7 +17,7 @@ datasource db {
 
 model Prize {
   id    String @id @default(cuid())
-  name  String
+  name  String @unique // Doesn't need to be unique, honestly
   count Int    @default(0)
 }
 
