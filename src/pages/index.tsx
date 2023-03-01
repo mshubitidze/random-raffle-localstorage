@@ -69,7 +69,7 @@ const Home: NextPage = () => {
         <meta name="description" content="BA Raffle" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-gradient-to-b from-[#2e026d] to-[#15162c] text-2xl text-white">
+      <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-gradient-to-b text-xl md:text-2xl bg-blue-800 text-white">
         {fetchPrizes.isLoading ? (
           <Loading />
         ) : hasPlayed ? (
