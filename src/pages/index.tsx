@@ -34,7 +34,7 @@ const Home: NextPage = () => {
       if (!prizes) return;
       setFetchedPrizes(prizes.filter((prize) => prize.count > 0));
     },
-    refetchInterval: 5000,
+    refetchInterval: 100,
     enabled: hasPlayed === false,
   });
 
