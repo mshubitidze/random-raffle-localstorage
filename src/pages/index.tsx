@@ -1,4 +1,4 @@
-import { Prize } from "@prisma/client";
+import { type Prize } from "@prisma/client";
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useState, useEffect } from "react";
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (localStorageData) {
       setHasPlayed(true);
-      const data = JSON.parse(localStorageData);
+      const data = JSON.parse(localStorageData) as Prize | "lost";
       if (data !== "lost") {
         setPrize(data);
         setWon(true);
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
       | "lost";
 
     if (result !== "lost") {
-      updatePrizeCount
+      void updatePrizeCount
         .mutateAsync({
           id: result.id,
           count: result.count - 1,
