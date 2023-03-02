@@ -21,8 +21,8 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (localStorageData) {
       setHasPlayed(true);
-      const data = JSON.parse(localStorageData) as Prize | "lost";
-      if (data !== "lost") {
+      const data = JSON.parse(localStorageData) as "lost" | Prize;
+      if (data !== "lost" && data) {
         setPrize(data);
         setWon(true);
       }
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
       setFetchedPrizes(prizes.filter((prize) => prize.count > 0));
     },
     refetchInterval: 100,
-    enabled: hasPlayed === false,
+    enabled: !hasPlayed,
   });
 
   const updatePrizeCount = api.prizes.updatePrizesCountById.useMutation();
@@ -69,12 +69,12 @@ const Home: NextPage = () => {
         <meta name="description" content="BA Raffle" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center gap-6 text-lg md:text-2xl bg-blue-800 text-white">
-        {fetchPrizes.isLoading ? (
+      <main className="flex flex-col gap-6 justify-center items-center min-h-screen text-lg text-white bg-blue-800 md:text-2xl">
+        {fetchPrizes.isLoading || updatePrizeCount.isLoading ? (
           <Loading />
         ) : hasPlayed ? (
-          won ? prize && (
-            <Win name={prize.name} id={prize.id} />
+          won ? (
+            prize && <Win name={prize.name} id={prize.id} />
           ) : (
             <Lose />
           )
