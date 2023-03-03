@@ -13,15 +13,11 @@ datasource db {
 }
 
 model Prize {
-  id    String @id @default(cuid())
-  name  String @unique // Doesn't need to be unique, honestly
-  count Int    @default(0)
-}
-
-model Example {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String  @id @default(cuid())
+  name      String  @unique
+  isWinning Boolean @default(false)
+  isWon     Boolean @default(false)
+  promoCode String  @unique
 }
 
 // Necessary for Next auth
@@ -41,6 +37,7 @@ model Account {
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -49,6 +46,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model User {
