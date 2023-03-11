@@ -22,25 +22,22 @@ const Home: NextPage = () => {
     }
   }, [localStorageData]);
 
-  const updatePrizeStatus = api.prizes.updatePrizeStatusById.useMutation();
+  // const updatePrizeStatus = api.prizes.updatePrizeStatusById.useMutation();
 
   const { isLoading: prizeLoading } =
     api.prizes.getARandomPrizeFromAvailable.useQuery(undefined, {
       onSuccess: (prize) => {
-        if (prize === "No Prizes Left") {
+        if (typeof prize === "string") {
           setIsOver(true);
           return;
         }
         setPrize(prize);
-        if (prize && prize.name && prize.name !== "LOSS") {
-          void updatePrizeStatus.mutateAsync({
-            id: prize.id,
-          });
-        }
         localStorage.setItem("prize", JSON.stringify(prize));
       },
-      enabled: !prize && !isOver && !localStorageData,
+      enabled: !localStorageData && !prize && !isOver,
     });
+
+  console.log(prize)
 
   return (
     <>

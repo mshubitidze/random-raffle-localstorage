@@ -10,6 +10,7 @@ const Win = ({ name, id }: { name: string; id: string }) => {
         height="370"
         src={`/prizes/${name.split("-")[1] ?? "default"}.png`}
         alt="prize"
+        priority={true}
       />
       <div className="flex flex-col gap-4 justify-center items-center md:flex-row">
         <p>Code:</p>
