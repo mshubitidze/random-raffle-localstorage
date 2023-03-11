@@ -22,8 +22,6 @@ const Home: NextPage = () => {
     }
   }, [localStorageData]);
 
-  // const updatePrizeStatus = api.prizes.updatePrizeStatusById.useMutation();
-
   const { isLoading: prizeLoading } =
     api.prizes.getARandomPrizeFromAvailable.useQuery(undefined, {
       onSuccess: (prize) => {
@@ -36,8 +34,6 @@ const Home: NextPage = () => {
       },
       enabled: !localStorageData && !prize && !isOver,
     });
-
-  console.log(prize)
 
   return (
     <>
