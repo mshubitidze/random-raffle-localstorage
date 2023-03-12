@@ -23,21 +23,25 @@ export const prizesRouter = createTRPCRouter({
     FOR UPDATE
   `;
 
-      if (prize[0]?.promoCode.slice(0, 4) === "LOSS") return prize[0];
+      if (!prize[0]) {
+        throw new Error("No prize was fetched");
+      }
 
-      const updatedPrize = await ctx.prisma.prize.updateMany({
-        where: { id: prize[0]?.id },
+      if (prize[0].promoCode.slice(0, 4) === "LOSS") return prize[0];
+
+      const updatedPrize = await ctx.prisma.prize.update({
+        where: { id: prize[0].id },
         data: { isWon: true },
       });
 
-      const updatedPrizeId = updatedPrize?.count ? prize[0]?.id : undefined;
+      const updatedPrizeId = updatedPrize.id ?? undefined;
 
       const result = await ctx.prisma.prize.findUnique({
         where: { id: updatedPrizeId },
       });
 
       if (!result) {
-        throw new Error("No prize found");
+        throw new Error("No prize found to update");
       }
 
       return result;
