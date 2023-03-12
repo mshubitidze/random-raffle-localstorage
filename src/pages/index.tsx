@@ -29,13 +29,12 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (prizeData) {
-      const prize = prizeData
-      if (typeof prize === "string") {
+      if (typeof prizeData === "string") {
         setIsOver(true);
         return;
       }
-      setPrize(prize);
-      localStorage.setItem("prize", JSON.stringify(prize));
+      setPrize(prizeData);
+      localStorage.setItem("prize", JSON.stringify(prizeData));
     }
   }, [prizeData]);
 
