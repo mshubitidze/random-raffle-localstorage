@@ -6,45 +6,49 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 export const prizesRouter = createTRPCRouter({
   getARandomPrizeFromAvailable: publicProcedure.query(
     async ({ ctx }): Promise<string | Prize> => {
-      const winningPrizesLeftCount = await ctx.prisma.prize.count({
-        where: { isWinning: true, isWon: false },
+      const prize = await ctx.prisma.$transaction(async (prisma) => {
+        const winningPrizesLeftCount = await prisma.prize.count({
+          where: { isWinning: true, isWon: false },
+        });
+
+        if (winningPrizesLeftCount === 0) {
+          return "No prizes left, raffle over";
+        }
+
+        const prize = await prisma.$queryRaw<Prize[]>`
+          SELECT * FROM Prize
+          WHERE isWon = false
+          AND EXISTS (SELECT * FROM Prize WHERE isWinning = true)
+          ORDER BY RAND()
+          LIMIT 1
+          FOR UPDATE
+        `;
+
+        if (!prize[0]) {
+          throw new Error("No prize was fetched");
+        }
+
+        if (prize[0].promoCode.slice(0, 4) === "LOSS") {
+          return prize[0];
+        }
+
+        const updatedPrize = await prisma.prize.update({
+          where: { id: prize[0].id },
+          data: { isWon: true },
+        });
+
+        return updatedPrize;
       });
 
-      if (winningPrizesLeftCount === 0) {
-        return "No prizes left, raffle over";
+      if (prize === "No prizes left, raffle over") {
+        return prize;
       }
 
-      const prize = await ctx.prisma.$queryRaw<Prize[]>`
-    SELECT * FROM Prize
-    WHERE isWon = false
-    AND EXISTS (SELECT * FROM Prize WHERE isWinning = true)
-    ORDER BY RAND()
-    LIMIT 1
-    FOR UPDATE
-  `;
-
-      if (!prize[0]) {
-        throw new Error("No prize was fetched");
+      if (!prize) {
+        throw new Error("No prize was fetched or updated");
       }
 
-      if (prize[0].promoCode.slice(0, 4) === "LOSS") return prize[0];
-
-      const updatedPrize = await ctx.prisma.prize.update({
-        where: { id: prize[0].id },
-        data: { isWon: true },
-      });
-
-      const updatedPrizeId = updatedPrize.id ?? undefined;
-
-      const result = await ctx.prisma.prize.findUnique({
-        where: { id: updatedPrizeId },
-      });
-
-      if (!result) {
-        throw new Error("No prize found to update");
-      }
-
-      return result;
+      return prize;
     }
   ),
 });

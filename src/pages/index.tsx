@@ -1,5 +1,5 @@
-import { type Prize } from "@prisma/client";
-import { type NextPage } from "next";
+import type { Prize } from "@prisma/client";
+import type { NextPage } from "next";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import Loading from "~/components/Loading";
@@ -22,18 +22,22 @@ const Home: NextPage = () => {
     }
   }, [localStorageData]);
 
-  const { isLoading: prizeLoading } =
+  const { data: prizeData, isLoading: prizeLoading } =
     api.prizes.getARandomPrizeFromAvailable.useQuery(undefined, {
-      onSuccess: (prize) => {
-        if (typeof prize === "string") {
-          setIsOver(true);
-          return;
-        }
-        setPrize(prize);
-        localStorage.setItem("prize", JSON.stringify(prize));
-      },
       enabled: !localStorageData && !prize && !isOver,
     });
+
+  useEffect(() => {
+    if (prizeData) {
+      const prize = prizeData
+      if (typeof prize === "string") {
+        setIsOver(true);
+        return;
+      }
+      setPrize(prize);
+      localStorage.setItem("prize", JSON.stringify(prize));
+    }
+  }, [prizeData]);
 
   return (
     <>
