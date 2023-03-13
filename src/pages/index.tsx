@@ -50,7 +50,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`flex ${roboto.className} min-h-screen flex-col items-center justify-center gap-6 bg-blue-800 text-lg text-white md:text-2xl`}
+        className={`flex max-h-screen md:min-h-screen flex-col items-center md:justify-center mt-8 md:mt-0 gap-6 bg-[#004fff] text-2xl text-white md:text-2xl ${roboto.className}`}
       >
         {prize ? (
           prize.isWinning ? (
