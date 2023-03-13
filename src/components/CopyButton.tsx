@@ -9,7 +9,7 @@ const CopyButton = ({ text }: { text: string }) => {
         setHasCopied(true);
         void navigator.clipboard.writeText(text);
       }}
-      className="py-2 px-5 font-semibold no-underline rounded-lg transition bg-white/40 hover:bg-white/70"
+      className="py-2 px-5 font-semibold text-white no-underline rounded-lg transition bg-white/30 hover:bg-white/40"
     >
       {hasCopied ? "Copied" : "Copy"}
     </button>
