@@ -12,7 +12,7 @@ const Win = ({ name, id }: { name: string; id: string }) => {
       {/*   alt="prize" */}
       {/*   priority={true} */}
       {/* /> */}
-      <div className="flex rounded-lg border-[10px] border-blue-900 justify-center items-center w-[400px] h-[600px] bg-fuchsia-500">
+      <div className="flex rounded-lg border-[10px] border-blue-900 justify-center items-center md:w-[400px] md:h-[600px] w-[280px] h-[400px] bg-fuchsia-500">
         {name}
       </div>
       <div className="flex flex-col gap-4 justify-center items-center md:flex-row">

@@ -40,10 +40,6 @@ export const prizesRouter = createTRPCRouter({
         return updatedPrize;
       });
 
-      if (prize === "No prizes left, raffle over") {
-        return prize;
-      }
-
       if (!prize) {
         throw new Error("No prize was fetched or updated");
       }

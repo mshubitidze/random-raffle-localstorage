@@ -8,6 +8,10 @@ import Over from "~/components/Over";
 import Win from "~/components/Win";
 import { api } from "~/utils/api";
 
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({ subsets: ["latin"], weight: "700" });
+
 const Home: NextPage = () => {
   const [prize, setPrize] = useState<Prize>();
   const [isOver, setIsOver] = useState(false);
@@ -45,7 +49,9 @@ const Home: NextPage = () => {
         <meta name="description" content="BA Raffle" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex flex-col gap-6 justify-center items-center min-h-screen text-lg text-white bg-blue-800 md:text-2xl">
+      <main
+        className={`flex ${roboto.className} min-h-screen flex-col items-center justify-center gap-6 bg-blue-800 text-lg text-white md:text-2xl`}
+      >
         {prize ? (
           prize.isWinning ? (
             <Win name={prize.name} id={prize.id} />
