@@ -50,11 +50,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`flex max-h-screen md:min-h-screen flex-col items-center md:justify-center mt-8 md:mt-0 gap-6 bg-[#004fff] text-2xl text-white md:text-2xl ${roboto.className}`}
+        className={`mt-8 flex max-h-screen flex-col items-center gap-6 bg-[#004fff] text-xl text-white md:mt-0 md:min-h-screen md:justify-center md:text-2xl ${roboto.className}`}
       >
         {prize ? (
           prize.isWinning ? (
-            <Win name={prize.name} id={prize.id} />
+            <Win name={prize.name} />
           ) : (
             <Lose />
           )
