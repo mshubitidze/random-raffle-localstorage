@@ -14,7 +14,7 @@ const Win = ({ name, id }: { name: string; id: string }) => {
   const image = {
     "marketer": "G5vYnT8JQw6URNyA12ZpAw==",
     "oktopus": "B2lf1pn8kbhTDYm3qCc9FQ==",
-    "veli-100": "ckcZ/ppViAM7bmGytmJFBQ==",
+    "veli-100": "ckcZpppViAM7bmGytmJFBQ==",
     "veli-200": "yavtbjv8eiAox5m7qLt8sQ==",
     "veli-500": "9YYoFNI1X2dA2gypu8VjpA==",
     "default": "default",
@@ -24,6 +24,8 @@ const Win = ({ name, id }: { name: string; id: string }) => {
   const mailSubject = `${name} - გამარჯვებული`;
   const messageBody =
     `გამარჯობა,%0D%0Aმოვიგე ${name}%0D%0A%0D%0A%0D%0Aპრიზის ID: ${id}`;
+
+  console.log(image);
 
   return (
     <div className="flex py-4 flex-col gap-8 items-center text-2xl font-extrabold md:text-2xl">
