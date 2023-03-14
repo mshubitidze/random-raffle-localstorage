@@ -51,7 +51,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`mt-8 flex max-h-screen flex-col items-center gap-6 text-white md:mt-0 md:min-h-screen md:justify-center ${inter.className}`}
+        className={`flex flex-col items-center min-h-screen gap-6 text-white ${inter.className}`}
       >
         {prize
           ? (
