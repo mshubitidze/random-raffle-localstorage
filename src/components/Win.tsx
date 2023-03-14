@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import EnvelopeIcon from "./EnvelopeIcon";
 import ExclamationIcon from "./ExclamationIcon";
 import InstructionsModal from "./InstructionsModal";
@@ -13,6 +13,24 @@ type PrizeName =
 
 const Win = ({ name, id }: { name: string; id: string }) => {
   const [toggle, setToggle] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      const button = document.getElementById("toggle-button");
+      if (button && button.contains(event.target as Node)) {
+        return;
+      }
+      setToggle(false);
+    }
+  };
 
   const imageName = name.substring(0, name.length - 2) ??
     "default" as PrizeName | "default";
@@ -42,12 +60,13 @@ const Win = ({ name, id }: { name: string; id: string }) => {
       />
       <div className="flex gap-2 flex-col backdrop-blur-md w-[255px] md:w-[300px] text-md md:text-lg justify-center font-semibold text-white transition mt-[110%] absolute">
         <div className="flex space-x-2">
-          <div
+          <button
+            id="toggle-button"
             onClick={() => setToggle(!toggle)}
             className="flex cursor-pointer"
           >
             <ExclamationIcon />
-          </div>
+          </button>
           <div className="flex flex-row items-center whitespace-nowrap select-none flex-1 justify-center py-2 px-5 space-x-2 no-underline bg-white/30 hover:bg-white/50 rounded-lg">
             <a
               href={`mailto:${mail}?subject=${mailSubject}&body=${messageBody}`}
@@ -57,8 +76,9 @@ const Win = ({ name, id }: { name: string; id: string }) => {
             <EnvelopeIcon />
           </div>
         </div>
-        {toggle &&
-          <InstructionsModal />}
+        <div ref={modalRef} className={`${toggle ? "block" : "hidden"} z-10`}>
+          <InstructionsModal />
+        </div>
       </div>
     </div>
   );
