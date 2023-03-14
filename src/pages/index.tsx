@@ -51,7 +51,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`flex flex-col items-center min-h-screen gap-6 text-white ${inter.className}`}
+        className={`flex flex-col items-center gap-6 text-white ${inter.className}`}
       >
         {prize
           ? (
