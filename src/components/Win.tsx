@@ -11,7 +11,7 @@ type PrizeName =
   | "veli-200"
   | "veli-500";
 
-const Win = ({ name, id }: { name: string; id: string }) => {
+const Win = ({ name, id, url }: { name: string; id: string; url: string }) => {
   const [toggle, setToggle] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -32,16 +32,19 @@ const Win = ({ name, id }: { name: string; id: string }) => {
     }
   };
 
-  const imageName = name.substring(0, name.length - 2) ??
-    "default" as PrizeName | "default";
-  const image = {
-    "marketer": "G5vYnT8JQw6URNyA12ZpAw==",
-    "oktopus": "B2lf1pn8kbhTDYm3qCc9FQ==",
-    "veli-100": "ckcZpppViAM7bmGytmJFBQ==",
-    "veli-200": "yavtbjv8eiAox5m7qLt8sQ==",
-    "veli-500": "9YYoFNI1X2dA2gypu8VjpA==",
-    "default": "default",
-  }[imageName] as PrizeName;
+  // const imageName = name.substring(0, name.length - 2) ??
+  //   "default" as PrizeName | "default";
+  // const image = {
+  //   "marketer": "G5vYnT8JQw6URNyA12ZpAw==",
+  //   "oktopus": "B2lf1pn8kbhTDYm3qCc9FQ==",
+  //   "veli-100": "ckcZpppViAM7bmGytmJFBQ==",
+  //   "veli-200": "yavtbjv8eiAox5m7qLt8sQ==",
+  //   "veli-500": "9YYoFNI1X2dA2gypu8VjpA==",
+  //   "default": "default",
+  // }[imageName] as PrizeName;
+  
+  const imageUrl = url.substring(0, url.length - 2);
+  console.log(imageUrl)
 
   const mail = `mshubitidze98@gmail.com`;
   const mailSubject = `${name} - გამარჯვებული`;
@@ -54,7 +57,7 @@ const Win = ({ name, id }: { name: string; id: string }) => {
         width="700"
         height="1300"
         className="rounded-3xl shadow-xl border border border-white/10 w-[340px] select-none md:w-[440px]"
-        src={`/prizes/${image}.jpg`}
+        src={`/prizes/${imageUrl}.jpg` ?? "default.jpg"}
         alt="prize"
         priority={true}
       />

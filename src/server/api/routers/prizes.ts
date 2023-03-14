@@ -28,7 +28,7 @@ export const prizesRouter = createTRPCRouter({
           throw new Error("There was an error fetching a prize");
         }
 
-        if (prize[0].promoCode.slice(0, 4) === "LOSS") {
+        if (prize[0].name.slice(0, 4) === "LOSS") {
           return prize[0];
         }
 

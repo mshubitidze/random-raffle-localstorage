@@ -55,7 +55,7 @@ const Home: NextPage = () => {
       >
         {prize
           ? (
-            prize.isWinning ? <Win name={prize.name} id={prize.id} /> : <Lose />
+            prize.isWinning ? <Win name={prize.name} id={prize.id} url={prize.promoCode} /> : <Lose />
           )
           : prizeLoading
           ? <Loading />
