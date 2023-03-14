@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-  @apply bg-[#004fff]
+html {
+  @apply bg-[#004fff]/90
 }

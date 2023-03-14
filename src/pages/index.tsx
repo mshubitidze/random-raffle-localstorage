@@ -1,23 +1,24 @@
 import type { Prize } from "@prisma/client";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Loading from "~/components/Loading";
 import Lose from "~/components/Lose";
 import Over from "~/components/Over";
 import Win from "~/components/Win";
 import { api } from "~/utils/api";
 
-import { Roboto } from "next/font/google";
+import { Inter } from "next/font/google";
 
-const roboto = Roboto({ subsets: ["latin"], weight: "700" });
+const inter = Inter({ subsets: ["latin"], weight: "400" });
 
 const Home: NextPage = () => {
   const [prize, setPrize] = useState<Prize>();
   const [isOver, setIsOver] = useState(false);
 
-  const localStorageData =
-    typeof window !== "undefined" ? localStorage.getItem("prize") ?? "" : "";
+  const localStorageData = typeof window !== "undefined"
+    ? localStorage.getItem("prize") ?? ""
+    : "";
 
   useEffect(() => {
     if (localStorageData) {
@@ -26,8 +27,8 @@ const Home: NextPage = () => {
     }
   }, [localStorageData]);
 
-  const { data: prizeData, isLoading: prizeLoading } =
-    api.prizes.getARandomPrizeFromAvailable.useQuery(undefined, {
+  const { data: prizeData, isLoading: prizeLoading } = api.prizes
+    .getARandomPrizeFromAvailable.useQuery(undefined, {
       enabled: !localStorageData && !prize && !isOver,
     });
 
@@ -50,19 +51,15 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`mt-8 flex max-h-screen flex-col items-center gap-6 bg-[#004fff] text-white md:mt-0 md:min-h-screen md:justify-center ${roboto.className}`}
+        className={`mt-8 flex max-h-screen flex-col items-center gap-6 text-white md:mt-0 md:min-h-screen md:justify-center ${inter.className}`}
       >
-        {prize ? (
-          prize.isWinning ? (
-            <Win name={prize.name} id={prize.id} />
-          ) : (
-            <Lose />
+        {prize
+          ? (
+            prize.isWinning ? <Win name={prize.name} id={prize.id} /> : <Lose />
           )
-        ) : prizeLoading ? (
-          <Loading />
-        ) : (
-          <Over />
-        )}
+          : prizeLoading
+          ? <Loading />
+          : <Over />}
       </main>
     </>
   );
