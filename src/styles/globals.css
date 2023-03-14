@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 html {
-  @apply bg-[#004fff]/90
+  @apply bg-[#004fff]
 }

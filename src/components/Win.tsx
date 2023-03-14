@@ -14,7 +14,7 @@ const Win = ({ name, id }: { name: string; id: string }) => {
       <Image
         width="390"
         height="844"
-        className="rounded-lg shadow-2xl w-[320px] md:w-[400px]"
+        className="rounded-3xl shadow-2xl border border border-white/10 w-[320px] md:w-[400px]"
         src={`/prizes/${imageName}.png`}
         alt="prize"
         priority={true}
