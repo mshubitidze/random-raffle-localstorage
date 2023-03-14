@@ -45,6 +45,6 @@ export const prizesRouter = createTRPCRouter({
       }
 
       return prize;
-    }
+    },
   ),
 });

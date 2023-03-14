@@ -1,7 +1,24 @@
 import Image from "next/image";
 
+type PrizeName =
+  | "marketer"
+  | "oktopus"
+  | "veli-100"
+  | "veli-200"
+  | "veli-500";
+
 const Win = ({ name, id }: { name: string; id: string }) => {
-  const imageName = name.substring(0, name.length - 2) ?? "default";
+  const imageName = (name.substring(0, name.length - 2) ?? "default") as
+    | PrizeName
+    | "default";
+  const image = {
+    "marketer": "G5vYnT8JQw6URNyA12ZpAw==",
+    "oktopus": "B2lf1pn8kbhTDYm3qCc9FQ==",
+    "veli-100": "ckcZ/ppViAM7bmGytmJFBQ==",
+    "veli-200": "yavtbjv8eiAox5m7qLt8sQ==",
+    "veli-500": "9YYoFNI1X2dA2gypu8VjpA==",
+    "default": "default",
+  }[imageName] as PrizeName;
 
   const mail = `mshubitidze98@gmail.com`;
   const mailSubject = `${name} - გამარჯვებული`;
@@ -14,7 +31,7 @@ const Win = ({ name, id }: { name: string; id: string }) => {
         width="700"
         height="1300"
         className="rounded-3xl shadow-xl border border border-white/10 w-[340px] md:w-[440px]"
-        src={`/prizes/${imageName}.jpg`}
+        src={`/prizes/${image}.jpg`}
         alt="prize"
         priority={true}
       />
