@@ -10,7 +10,7 @@ const Win = ({ name, id }: { name: string; id: string }) => {
     `გამარჯობა,%0D%0Aმოვიგე ${name}%0D%0A%0D%0A%0D%0Aპრიზის ID: ${id}`;
 
   return (
-    <div className="flex pt-8 flex-col gap-8 items-center text-2xl font-extrabold md:text-2xl">
+    <div className="flex py-4 flex-col gap-8 items-center text-2xl font-extrabold md:text-2xl">
       <Image
         width="700"
         height="1300"
