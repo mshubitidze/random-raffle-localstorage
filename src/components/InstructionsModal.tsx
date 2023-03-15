@@ -13,7 +13,7 @@ const InstructionsModal = ({ code }: { code: string }) => {
       <div className="flex space-x-2">
         <div
           className={`flex w-full border ${
-            emailCopied ? "bg-green-500/40" : "bg-black/30"
+            emailCopied ? "bg-white/30" : "bg-black/30"
           } rounded-lg border-white space-x-2`}
         >
           <pre className="flex-1 px-2 py-1">{email}</pre>
@@ -32,7 +32,7 @@ const InstructionsModal = ({ code }: { code: string }) => {
       <div className="flex space-x-2">
         <div
           className={`flex w-full border ${
-            codeCopied ? "bg-green-500/40" : "bg-black/30"
+            codeCopied ? "bg-white/30" : "bg-black/30"
           } rounded-lg border-white space-x-2`}
         >
           <pre className="flex-1 px-2 py-1">{code}</pre>

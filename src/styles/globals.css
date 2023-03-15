@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-::selection {
-  @apply bg-[#004fff];
-}
-
 html {
   @apply bg-[#004fff];
 }
