@@ -8,10 +8,6 @@ import Over from "~/components/Over";
 import Win from "~/components/Win";
 import { api } from "~/utils/api";
 
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"], weight: "400" });
-
 const Home: NextPage = () => {
   const [prize, setPrize] = useState<Prize>();
   const [isOver, setIsOver] = useState(false);
@@ -51,11 +47,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`flex flex-col items-center gap-6 text-white ${inter.className}`}
+        className={`flex flex-col items-center gap-6 text-white`}
       >
         {prize
           ? (
-            prize.isWinning ? <Win name={prize.name} id={prize.id} url={prize.promoCode} /> : <Lose />
+            prize.isWinning
+              ? <Win id={prize.id} url={prize.imageUrl} />
+              : <Lose />
           )
           : prizeLoading
           ? <Loading />

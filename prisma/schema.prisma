@@ -8,7 +8,6 @@ generator client {
 datasource db {
   provider          = "mysql"
   url               = env("DATABASE_URL")
-  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
   relationMode      = "prisma"
 }
 
@@ -17,7 +16,7 @@ model Prize {
   name      String  @unique
   isWinning Boolean @default(false)
   isWon     Boolean @default(false)
-  promoCode String  @unique
+  imageUrl  String
 }
 
 // Necessary for Next auth
